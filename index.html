@@ -9,22 +9,24 @@
   <body>
     <h1 class="welcome">Welcome <br />!!!Tic Tac Toe!!!</h1>
 
-    <div class="playerMenu">
-      <label for="player1">Player 1:</label>
-      <input type="text" id="player1" placeholder="Enter Player 1 name " />
+    <form id="playerForm">
+      <div class="playerMenu">
+        <label for="player1">Player 1:</label>
+        <input type="text" id="player1" placeholder="Enter Player 1 name " />
 
-      <label for="player2">Player 2:</label>
-      <input type="text" id="player2" placeholder="Enter Player 2 name " />
-    </div>
-
-    <div class="scoreboard">
-      <h2>-Score-</h2>
-      <div class="scores">
-        <div id="player1Score">-Player 1 --- > 0</div>
-        <div id="player2Score">-Player 2 --- > 0</div>
+        <label for="player2">Player 2:</label>
+        <input type="text" id="player2" placeholder="Enter Player 2 name " />
       </div>
-    </div>
 
+      <div class="scoreboard">
+        <h2>-Score-</h2>
+        <div class="scores">
+          <div id="player1Score">-Player 1 --- > 0</div>
+          <div id="player2Score">-Player 2 --- > 0</div>
+        </div>
+        <button type="submit" id="startButton">Start Game</button>
+      </div>
+    </form>
     <div id="gameboard">
       <div class="row">
         <div class="cell" id="cell0"></div>
@@ -43,6 +45,7 @@
       </div>
     </div>
 
+    <div id="winner"></div>
     <script src="script.js"></script>
   </body>
 </html>
