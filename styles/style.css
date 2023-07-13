@@ -90,3 +90,22 @@ h2 {
   justify-content: center;
   margin-top: 2rem;
 }
+
+.winning-cell {
+  animation: winning-cell-animation 1s forwards;
+}
+
+@keyframes winning-cell-animation {
+  0% {
+    background-color: transparent;
+    transform: scale(1);
+  }
+  50% {
+    background-color: gold;
+    transform: scale(1.2);
+  }
+  100% {
+    background-color: transparent;
+    transform: scale(1);
+  }
+}

@@ -18,7 +18,8 @@ const winningCombinations = [
   [1, 4, 7],
   [2, 5, 8], 
   [0, 4, 8],
-  [2, 4, 6]  
+  [2, 4, 6],
+  [0, 3, 6]  
 ];
 
 let cell0=document.getElementById('0');
@@ -109,6 +110,7 @@ function checkScore() {
       infoDisplay.textContent = 'Circle Wins!';
       player1Score++;
       playerScore1.textContent = `O: ${player1Name}: ${player1Score}`;
+       array.forEach(num => allCells[num].classList.add('winning-cell'));
       foundWinner = true; 
       return; 
     }
@@ -126,6 +128,7 @@ function checkScore() {
       infoDisplay.textContent = 'Cross Wins!';
       player2Score++;
       playerScore2.textContent = `X: ${player2Name}: ${player2Score}`;
+       array.forEach(num => allCells[num].classList.add('winning-cell'));
       foundWinner = true; 
       return; 
     }
@@ -157,7 +160,9 @@ continueButton.addEventListener('click', continueGame);
 function continueGame() {
   movesPlayed = 0; 
   const allCells = document.querySelectorAll('.cell');
-  allCells.forEach(cell => cell.innerHTML = ''); 
+  allCells.forEach(cell => {cell.innerHTML = ''
+  cell.classList.remove('winning-cell');
+}); 
   go='circle';
   infoDisplay.textContent = 'It is now ' + go + "'s turn.";
 
