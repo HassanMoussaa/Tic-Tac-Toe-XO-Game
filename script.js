@@ -1,15 +1,15 @@
 // refrencing all the input elements (names/scores/cells/winner)
 
-let player1Input = document.getElementById('player1');
-let player2Input = document.getElementById('player2');
-let playerScore1=document.getElementById('player1Score');
-let playerScore2=document.getElementById('player2Score');
+const player1Input = document.getElementById('player1');
+const player2Input = document.getElementById('player2');
+const playerScore1=document.getElementById('player1Score');
+const playerScore2=document.getElementById('player2Score');
 
-let winnerPlayer=document.getElementById('winner');
-let gameboard=document.getElementById('gameboard')
-let form = document.getElementById('playerForm');
-let startButton = document.getElementById('startButton');
-const infoDisplay=document.querySelector('.infoDisplay')
+const gameboard=document.getElementById('gameboard')
+const form = document.getElementById('playerForm');
+const startButton = document.getElementById('startButton');
+const restartButton=document.getElementById('restart');
+const infoDisplay=document.querySelector('.infoDisplay');
 
 const winningCombinations = [
   [0, 1, 2], 
@@ -31,15 +31,16 @@ let cell6=document.getElementById('6');
 let cell7=document.getElementById('7');
 let cell8=document.getElementById('8');
 
-let startCells=["","","","","","","","",""]
+
 
 let player1Name = ''; 
 let player2Name = '';
 let player1Score = 0;
 let player2Score = 0;
-let go = "circle"
+let movesPlayed = 0;
+let go = "circle";
 
-infoDisplay.textContent="Circle goes first"
+infoDisplay.textContent="Circle goes first";
 
 function formSubmit(event) {
   event.preventDefault(); 
@@ -49,9 +50,10 @@ function formSubmit(event) {
 }
 
 function startGame() {
-    playerScore1.textContent = `${player1Name}: ${player1Score}`;
-    playerScore2.textContent = `${player2Name}: ${player2Score}`;
-    // gameboard.addEventListener('click', CellClick);
+    playerScore1.textContent = `O: ${player1Name}:  ${player1Score}`;
+    playerScore2.textContent = `X: ${player2Name}: ${player2Score}`;
+    
+    
     cell0.addEventListener('click', CellClick);;
     cell1.addEventListener('click', CellClick);;
     cell2.addEventListener('click', CellClick);;
@@ -73,17 +75,23 @@ function CellClick(event){
     let goDisplay=document.createElement('div');
     goDisplay.classList.add(go);
     clickedCell.append(goDisplay);
+    movesPlayed++;
+    
+    
 
     if (go === "circle") {
-    go = "cross";
-    } else {
-    go = "circle";
+        go = "cross";
+        } else {
+        go = "circle";
     }
-
+    
     infoDisplay.textContent="it is now " + go +"'s go ."
     clickedCell.removeEventListener('click', CellClick)
    
     checkScore()
+    if (movesPlayed === 9) {
+    infoDisplay.textContent = 'It\'s a draw!';
+  }
 }
 
 
@@ -99,6 +107,8 @@ function checkScore() {
 
     if (circleWins) {
       infoDisplay.textContent = 'Circle Wins!';
+      player1Score++;
+      playerScore1.textContent = `O: ${player1Name}: ${player1Score}`;
       foundWinner = true; 
       return; 
     }
@@ -114,6 +124,8 @@ function checkScore() {
 
     if (crossWins) {
       infoDisplay.textContent = 'Cross Wins!';
+      player2Score++;
+      playerScore2.textContent = `X: ${player2Name}: ${player2Score}`;
       foundWinner = true; 
       return; 
     }
@@ -123,10 +135,35 @@ function checkScore() {
     allCells.forEach(num => num.replaceWith(num.cloneNode(true)));
     return; 
   }
+
+   if (!foundWinner && movesPlayed === 9) {
+    infoDisplay.textContent = 'It\'s a draw!';
+    allCells.forEach(cell => cell.innerHTML = ''); 
+    movesPlayed = 0; 
+  }
+
+ 
 }
 
 
 
+restartButton.addEventListener('click', function() {
+  location.reload(); 
+});
+
+const continueButton = document.getElementById('continueButton');
+continueButton.addEventListener('click', continueGame);
+
+function continueGame() {
+  movesPlayed = 0; 
+  const allCells = document.querySelectorAll('.cell');
+  allCells.forEach(cell => cell.innerHTML = ''); 
+  go='circle';
+  infoDisplay.textContent = 'It is now ' + go + "'s turn.";
+
+
+  allCells.forEach(cell => cell.addEventListener('click', CellClick));
+}
 
 
 form.addEventListener('submit', formSubmit);
