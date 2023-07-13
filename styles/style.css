@@ -40,4 +40,42 @@ h2 {
   border: solid;
   width: 80px;
   height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  border: 7px solid blue;
+  box-sizing: border-box;
+}
+
+.cross {
+  height: 70px;
+  width: 70px;
+  position: relative;
+  transform: rotate(45deg);
+}
+
+.cross::before,
+.cross::after {
+  content: "";
+  position: absolute;
+  background-color: rgb(255, 0, 0);
+}
+
+.cross::before {
+  left: 50%;
+  width: 30%;
+  margin-left: -15%;
+  height: 100%;
+}
+.cross::after {
+  top: 50%;
+  height: 30%;
+  margin-top: -15%;
+  width: 100%;
 }
